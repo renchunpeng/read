@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.lyf.dao.BookDao">
+	
+	<select id="getBookList" resultType="Book">
+		SELECT
+			*
+		FROM
+			book;
+	</select>
+
+	<insert id="saveBook" parameterType="Book">
+		INSERT INTO book
+		VALUES
+			(
+				UUID(),
+				#{name},
+				#{bookUrl},
+				#{bookImg}
+			)
+	</insert>
+	
+</mapper>
