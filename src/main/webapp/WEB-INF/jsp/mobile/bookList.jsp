@@ -35,7 +35,7 @@
         </div>
         <a id="mypanel" href="#setting" data-ajax="false" data-icon="search" style="display: none">面板</a>
     </div>
-<div style="align-content: center;text-align: center;padding-top:5px">123</div>
+
     <div data-role="content" >
         <ul data-role="listview" data-inset="true">
             <c:forEach items="${lists}" var="item">
