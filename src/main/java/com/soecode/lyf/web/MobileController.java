@@ -7,7 +7,6 @@ import com.soecode.lyf.common.Constants;
 import com.soecode.lyf.dto.Result;
 import com.soecode.lyf.entity.*;
 import com.soecode.lyf.service.MobileService;
-import org.apache.commons.collections.map.HashedMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -253,7 +252,7 @@ public class MobileController {
             User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
             System.out.println(loginUser.getId());
             System.out.println(bookMark);
-            Map<Object, Object> params = new HashedMap();
+            Map<Object, Object> params = new HashMap<>();
             params.put("user_id",loginUser.getId());
             params.put("book_mark",bookMark);
             int end = bookMark.lastIndexOf("/");
