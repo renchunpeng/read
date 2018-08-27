@@ -2,9 +2,11 @@ package com.soecode.system.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Component
 @Aspect
 public class ErrAspect {
     // 切入点表达式按需配置
@@ -37,7 +39,7 @@ public class ErrAspect {
 
     //这个总是捕捉不到错误
     @AfterThrowing(value = "myPointcut()", throwing = "e")
-    public void afterThrowing(JoinPoint joinPoint) {
+    public void afterThrowing(JoinPoint joinPoint,Throwable  e) {
         System.out.println("[Aspect1] afterThrowing advise");
     }
 

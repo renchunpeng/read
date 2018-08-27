@@ -3,6 +3,7 @@ package com.soecode.lyf.web;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.soecode.lyf.businessUtils.BookListUtils;
 import com.soecode.lyf.common.Constants;
+import com.soecode.lyf.common.DesUtil;
 import com.soecode.lyf.dto.Result;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.service.LoginService;
@@ -33,7 +34,7 @@ public class LoginController {
 	private LoginService loginService;
 
 	@Autowired
-	private BookListUtils bookListUtils;
+	private DesUtil desUtil;
 
 	@RequestMapping(value = "/goLogin", method = RequestMethod.GET)
 	private String goLogin() {
@@ -50,24 +51,27 @@ public class LoginController {
 	@ResponseBody
 	private String doLogin(HttpServletRequest request, HttpServletResponse response, 
 			String name, String pwd, HttpSession session) {
+		try{
+			Map<String, String> map = new HashMap<>();
+			map.put("name", name);
+			map.put("pwd", pwd);
+			User user = loginService.doLogin(map);
 
-		Map<String, String> map = new HashMap<>();
-		map.put("name", name);
-		map.put("pwd", pwd);
-		User user = loginService.doLogin(map);
-		
-		if (null == user) {
+			if (null == user) {
+				return "fail";
+			}
+
+			User loginUser = new User();
+			BeanUtils.copyProperties(user,loginUser);
+			session.setAttribute(Constants.SESSION_ID,loginUser);
+
+			//填充cookie
+			setCookie(request,response,name,pwd);
+
+			return "success";
+		}catch (Exception e){
 			return "fail";
 		}
-		
-		User loginUser = new User();
-        BeanUtils.copyProperties(user,loginUser);
-		session.setAttribute(Constants.SESSION_ID,loginUser);
-		
-		//填充cookie
-        setCookie(request,response,name,pwd);
-        
-		return "success";
 	}
 
 	/**
@@ -77,13 +81,15 @@ public class LoginController {
 	 * @param name
 	 * @param pwd
 	 */
-    private void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String pwd){
+    private void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String pwd) throws Exception{
         //用户名密码存入cookie
-		Cookie userName=new Cookie(Constants.COOKIE_NAME,name);
+		name = desUtil.encrypt(name);
+		Cookie userName=new Cookie(Constants.COOKIE_NAME, name);
 		userName.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
 		userName.setPath("/");
 		response.addCookie(userName);
 
+		pwd = desUtil.encrypt(pwd);
 		Cookie userPwd=new Cookie(Constants.COOKIE_PWD,pwd);
 		userPwd.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
 		userPwd.setPath("/");

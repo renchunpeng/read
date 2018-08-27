@@ -1,6 +1,7 @@
 package com.soecode.system;
 
 import com.soecode.lyf.common.Constants;
+import com.soecode.lyf.common.DesUtil;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.service.LoginService;
 import com.soecode.lyf.service.MobileService;
@@ -27,10 +28,10 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private LoginService loginService;
 
-    @Autowired
-    private MobileService mobileService;
-
     private String redirectUrl;
+
+    @Autowired
+    private DesUtil desUtil;
 
     /**
      * 不拦截的url
@@ -87,15 +88,18 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             }
             String nameValue = null;
             String pwdValue = null;
-            String bookListValue = null;
             for (int i = 0; i < cookie.length; i++) {
                 Cookie cook = cookie[i];
                 if(cook.getName().equalsIgnoreCase(Constants.COOKIE_NAME)){ //获取用戶名鍵
                     nameValue = cook.getValue().toString();
-                    System.out.println("name:"+nameValue);    //获取值
+                    System.out.println("解密前name:"+nameValue);    //获取值
+                    nameValue = desUtil.decrypt(nameValue);
+                    System.out.println("解密后name:"+nameValue);
                 }else if(cook.getName().equalsIgnoreCase(Constants.COOKIE_PWD)){ //获取密码键
                     pwdValue = cook.getValue().toString();
-                    System.out.println("pwd:"+pwdValue);    //获取值
+                    System.out.println("解密前pwd:"+pwdValue);    //获取值
+                    pwdValue = desUtil.decrypt(pwdValue);
+                    System.out.println("解密后pwd:"+pwdValue);
                 }
             }
 
