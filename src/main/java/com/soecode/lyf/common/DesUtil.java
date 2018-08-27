@@ -153,7 +153,6 @@ public class DesUtil {
 //            System.err.println(encrypt(data));
 //            System.err.println(decrypt(encrypt(data)));
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -1,14 +1,17 @@
 package com.soecode.lyf.web;
 
 import com.soecode.lyf.common.DesUtil;
+import com.soecode.lyf.entity.SearchBook;
+import net.sf.json.JSONArray;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/test")
@@ -22,14 +25,15 @@ public class TestController {
 	public void rcp(){
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/spring-*.xml");
-		
-//		BookServiceImpl bean = context.getBean("bookServiceImpl",BookServiceImpl.class);
-//		Book book = new Book();
-//		book.setName("jquery");
-//		book.setNumber(123);
-//		bean.insertBook(book);
+		MobileController bean = context.getBean("mobileController",MobileController.class);
+		List<SearchBook> lists = bean.search("欲望");
+		String s = JSONArray.fromObject(lists).toString();
+		System.out.println(s);
 	}
 
+	/**
+	 * 加减密测试
+	 */
 	@Test
 	public  void testPwd(){
 		@SuppressWarnings("resource")
@@ -41,7 +45,6 @@ public class TestController {
 			System.err.println(bean.encrypt(data));
 			System.err.println(bean.decrypt(bean.encrypt(data)));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
