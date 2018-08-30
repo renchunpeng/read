@@ -7,6 +7,26 @@ public class User{
 	
 	private String password;
 
+	private String remindupdate;
+
+	private String email;
+
+	public String getRemindupdate() {
+		return remindupdate;
+	}
+
+	public void setRemindupdate(String remindupdate) {
+		this.remindupdate = remindupdate;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getId() {
 		return id;
 	}

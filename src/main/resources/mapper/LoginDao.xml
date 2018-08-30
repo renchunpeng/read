@@ -18,5 +18,12 @@
 		VALUES
 		(uuid(),#{name}, #{password})
 	</insert>
+
+	<select id="getAllUser" resultType="User">
+		SELECT
+			*
+		FROM
+			user
+	</select>
 	
 </mapper>

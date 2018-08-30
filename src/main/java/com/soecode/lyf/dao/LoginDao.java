@@ -1,5 +1,6 @@
 package com.soecode.lyf.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.soecode.lyf.entity.User;
@@ -14,4 +15,6 @@ public interface LoginDao {
 	User doLogin(Map<String, String> map);
 
 	int register(User user);
+
+	List<User> getAllUser();
 }

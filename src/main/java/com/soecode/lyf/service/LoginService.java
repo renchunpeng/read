@@ -1,5 +1,6 @@
 package com.soecode.lyf.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.soecode.lyf.entity.User;
@@ -22,4 +23,11 @@ public interface LoginService {
 	 * @return
 	 */
 	int register(User user);
+
+	/**
+	 * 获取所有用户
+	 *
+	 * @return
+	 */
+	List<User> getAllUser();
 }

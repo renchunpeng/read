@@ -2,12 +2,14 @@ package com.soecode.lyf.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.WebUtils;
@@ -41,11 +43,19 @@ public class Common {
 		}
 		return result;
 	}
-	
+
 	public static void main(String[] args){
-		String str = "更新时间：2018-01-23 09:50:23";
-		str = str.substring(str.indexOf("：")+1, str.length());
-		System.out.println(str);
+		String a = null;
+		String b = "";
+		String c = " ";
+		System.out.println(StringUtils.isEmpty(a));
+		System.out.println(StringUtils.isEmpty(b));
+		System.out.println(StringUtils.isEmpty(c));
+
+		System.out.println(a.length());
+		System.out.println(b.length());
+		System.out.println(c.length());
+
 	}
 	
 	public static User getUser(){

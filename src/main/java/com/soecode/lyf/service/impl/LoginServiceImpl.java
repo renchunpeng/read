@@ -1,5 +1,6 @@
 package com.soecode.lyf.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -27,5 +28,10 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int register(User user) {
 		return loginDao.register(user);
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		return loginDao.getAllUser();
 	}
 }

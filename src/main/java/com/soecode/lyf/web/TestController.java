@@ -2,6 +2,7 @@ package com.soecode.lyf.web;
 
 import com.soecode.lyf.common.DesUtil;
 import com.soecode.lyf.entity.SearchBook;
+import com.soecode.lyf.task.sendemail.BookUpdate;
 import net.sf.json.JSONArray;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -44,6 +45,21 @@ public class TestController {
 		try {
 			System.err.println(bean.encrypt(data));
 			System.err.println(bean.decrypt(bean.encrypt(data)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 定时器测试
+	 */
+	@Test
+	public  void testDSQ(){
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/spring-*.xml");
+		BookUpdate bean = context.getBean("bookUpdate",BookUpdate.class);
+		try {
+			bean.task();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
