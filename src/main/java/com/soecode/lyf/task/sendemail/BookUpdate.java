@@ -59,7 +59,7 @@ public class BookUpdate {
                     log.info(item.getName()+"书籍列表无书籍更新！");
                     continue;
                 }
-                String html = "<html><head></head><body><table>";
+                String html = "<html><head></head><body><table border=\"1\" cellspacing=\"0\">";
                 html += "<tr><td>书名</td><td>最新章节</td></tr>";
 
                 for(Object key:updateBook.keySet()){//keySet获取map集合key的集合  然后在遍历key即可
