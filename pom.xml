@@ -27,14 +27,12 @@
             <classifier>jdk15</classifier>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-        <!--发送邮件-->
-<!--        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.4</version>
-        </dependency>-->
+        <!--HttpClient-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
 
     </dependencies>
 
