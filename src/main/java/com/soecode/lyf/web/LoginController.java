@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.soecode.lyf.businessUtils.BookListUtils;
 import com.soecode.lyf.common.Constants;
 import com.soecode.lyf.common.DesUtil;
+import com.soecode.lyf.common.parse.otherSupport.ValidateUtil;
 import com.soecode.lyf.dto.Result;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.service.LoginService;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +46,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/goRegister", method = RequestMethod.GET)
-	private String goRegister() {
+	private String goRegister(Model model) {
+		model.addAttribute("validate", ValidateUtil.getValidate(User.class));
 		return "/login/register";
 	}
 	
@@ -102,7 +106,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public Result register(User user) {
+	public Result register(@Valid User user) {
 		try {
 			int i = loginService.register(user);
 			if (i > 0 ){

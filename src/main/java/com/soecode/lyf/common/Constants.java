@@ -27,4 +27,14 @@ public interface Constants {
 	 * 用户cookie的 pwd
 	 */
 	String COOKIE_PWD = "cookie_pwd";
+
+	/**
+	 * 高德开放平台的key
+	 */
+	String GAODE_KEY = "737055e086e3381f3f1a5f188f72bcab";
+
+	/**
+	 * 高德开放平台—获取行政区域的接口
+	 */
+	String GAODE_GETAREA = "https://restapi.amap.com/v3/config/district";
 }

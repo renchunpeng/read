@@ -37,6 +37,11 @@
     </div>
 
     <div data-role="content" >
+        <div class="custom-notice">
+            <i class="icon-notice"></i>
+            <marquee id="weather" class="noticeText ng-binding" direction="left" behavior="scroll" scrollamount="3" scrolldelay="40"  width="100%" onmouseover="this.stop();" onmouseout="this.start();"  style="width: 100%;"></marquee>
+        </div>
+
         <ul data-role="listview" data-inset="true">
             <c:forEach items="${lists}" var="item">
                 <li>
@@ -84,6 +89,26 @@
             }else{
                 var pageUrl = $(this).attr("url");
                 window.location.href = pageUrl + "&isNewList=" + "true";
+            }
+        });
+
+        /*获取用户注册地址的天气,后期可以改成根据ip获取地区*/
+        $.ajax({
+            url:"<%=basePath%>weather/getWeatherNow",
+            type:"GET",
+            data:{
+                extensions : "base"
+            },
+            success:function(result){
+                if(result.success){
+                    var info = result.data.lives[0];
+                    var value = "";
+                    if(info != "" || info != null){
+                        value += info.city + "当前" + info.weather + " " + info.temperature + "度 " + info.winddirection + "风" + info.windpower + "级 " +
+                                        "空气湿度:" + info.humidity + "%";
+                        $("#weather").text(value);
+                    }
+                }
             }
         });
 

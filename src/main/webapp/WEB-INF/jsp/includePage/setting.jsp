@@ -1,16 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 
 <div data-role="panel" id="setting">
-    <h2 onclick="op()">面板头部</h2>
-    <p onclick="qw()">你可以通过点击面板外部区域或按下 Esc 键或滑动来关闭面板。</p>
+    <h2>功能测试</h2>
+    <button id="btn1" onclick="btn1()">获取当前位置</button>
 </div>
 
 <script>
-    function op() {
-        alert(123);
+    function btn1() {
+        document.location.href = "<%=basePath %>/map/goMap";
     }
 
-    function qw() {
-        window.location.href="http://www.baidu.com";
-    }
 </script>
