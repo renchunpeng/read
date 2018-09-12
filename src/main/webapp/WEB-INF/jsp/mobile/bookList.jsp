@@ -39,7 +39,7 @@
     <div data-role="content" >
         <div class="custom-notice">
             <i class="icon-notice"></i>
-            <marquee id="weather" class="noticeText ng-binding" direction="left" behavior="scroll" scrollamount="3" scrolldelay="40"  width="100%" onmouseover="this.stop();" onmouseout="this.start();"  style="width: 100%;"></marquee>
+            <marquee id="weather" class="noticeText ng-binding" direction="left" behavior="scroll" scrollamount="1" scrolldelay="1"  width="100%" onmouseover="this.stop();" onmouseout="this.start();"  style="width: 100%;"></marquee>
         </div>
 
         <ul data-role="listview" data-inset="true">
