@@ -74,7 +74,7 @@
 
 			$("#bookmark").click(function(){
 				$.ajax({
-					url :"<%=basePath%>mobile/saveBookMark",
+					url :"<%=basePath%>mobile/saveBookMarkList",
 					data :{"bookMark":"${thisUrl }"},
 					type : "post",
 					dataType:"json",
@@ -82,7 +82,7 @@
 						if (result.success) {
 							alert("书签保存成功！");
 						} else {
-							alert("书签保存失败！");
+							alert(result.error ||"书签保存失败！");
 						}
 					}
 				});

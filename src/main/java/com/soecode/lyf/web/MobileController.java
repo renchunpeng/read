@@ -140,13 +140,22 @@ public class MobileController {
      * 内容主体
      *
      * @param url
-     * @param response
+     * @param session
      * @param model
      * @return
      * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = "getContent", produces = "text/html; charset=utf-8")
-    public String getContent(String url, String isNewList, HttpServletResponse response, Model model) throws UnsupportedEncodingException {
+    public String getContent(String url, String isNewList, HttpSession session, Model model) throws UnsupportedEncodingException {
+        //TODO 获取章节信息的时候更新用户该书籍最后浏览章节
+        User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
+        Map<Object, Object> params = new HashMap<>();
+        params.put("user_id",loginUser.getId());
+        params.put("book_mark",url);
+        int end = url.lastIndexOf("/");
+        params.put("book_url",url.substring(0,end + 1));
+        mobileService.saveBookMark(params);
+
         Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
@@ -248,23 +257,16 @@ public class MobileController {
      * @param bookMark
      * @param session
      */
-    @RequestMapping(value = "/saveBookMark")
+    @RequestMapping(value = "/saveBookMarkList")
     @ResponseBody
-    public Result saveBookMark(String bookMark, HttpSession session){
+    public Result saveBookMarkList(String bookMark, HttpSession session){
         try {
-            User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
-            System.out.println(loginUser.getId());
-            System.out.println(bookMark);
-            Map<Object, Object> params = new HashMap<>();
-            params.put("user_id",loginUser.getId());
-            params.put("book_mark",bookMark);
-            int end = bookMark.lastIndexOf("/");
-            params.put("book_url",bookMark.substring(0,end + 1));
-            int i = mobileService.saveBookMark(params);
+            int i = 0;
+            String Msg = "功能正在开发中";
             if (i > 0 ){
                 return new Result(true,null);
             }else {
-                return new Result(false,null);
+                return new Result(false,Msg);
             }
         }catch (Exception e){
             return new Result(false,null);
