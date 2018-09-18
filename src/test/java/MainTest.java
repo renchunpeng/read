@@ -12,14 +12,14 @@ import java.util.Map;
 public class MainTest {
 
     public static void main(String[] args) throws Exception{
-        String url = "http://www.biqukan.com/50_50204/22248997.html";
+        String url = "http://www.biqukan.com/0_178/22237775.html";
         while (true){
             Map content = getContent(url);
             if(null != content.get("content") && "" != content.get("content")){
                 read(content.get("content").toString());
             }
 
-            if(null != content.get("next") && "" != content.get("content")){
+            if(null != content.get("next") && "" != content.get("next")){
                 url = content.get("next").toString();
             }else{
                 break;
