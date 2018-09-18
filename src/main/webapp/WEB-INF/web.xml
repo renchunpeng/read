@@ -23,7 +23,16 @@
     <servlet-mapping>
         <servlet-name>DruidStatView</servlet-name>
         <url-pattern>/druid/*</url-pattern>
-    </servlet-mapping> 
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Start</servlet-name>
+        <servlet-class>com.soecode.lyf.wx.Start</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Start</servlet-name>
+        <url-pattern>/Start</url-pattern>
+    </servlet-mapping>
   
   	<!-- 加载spring和spring mvc配置文件 -->
   	<servlet>

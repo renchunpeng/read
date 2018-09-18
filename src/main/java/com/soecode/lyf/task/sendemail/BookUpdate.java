@@ -69,7 +69,7 @@ public class BookUpdate {
 
                 html += "</table></body></html>";
                 log.info(html);
-                createEmailBody.getContent(html,item.getEmail());
+                createEmailBody.getContent(html,item.getEmail(),"小说更新提醒");
             }
 
         }catch (Exception e) {

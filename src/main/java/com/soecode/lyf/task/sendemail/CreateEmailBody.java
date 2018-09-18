@@ -23,7 +23,14 @@ public class CreateEmailBody {
     @Value("${settings.emailHost}")
     public String host;
 
-    public void getContent(String htmlValue,String emailTo)throws Exception{
+    /**
+     * 邮件主体，收件人，标题
+     * @param htmlValue
+     * @param emailTo
+     * @param title
+     * @throws Exception
+     */
+    public void getContent(String htmlValue,String emailTo,String title)throws Exception{
         // 获取系统属性
         Properties properties = System.getProperties();
         // 设置邮件服务器
@@ -52,7 +59,7 @@ public class CreateEmailBody {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
 
             // Set Subject: 头部头字段
-            message.setSubject("This is the Subject Line!");
+            message.setSubject(title);
 
             // 发送 HTML 消息, 可以插入html标签
             message.setContent(htmlValue,"text/html; charset=utf-8" );
