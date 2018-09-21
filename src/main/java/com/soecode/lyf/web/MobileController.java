@@ -83,7 +83,7 @@ public class MobileController {
     }
 
     /**
-     * 最新章节列表
+     * 最新章节列表&所有章节列表
      *
      * @param model
      * @param url

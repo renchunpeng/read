@@ -17,7 +17,7 @@ public class GetAccessToken{
 
 	public static String getAccess_token() {
 
-		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + "wx97bde44e0fca1b17" + "&secret=" + "ae049f66082be0c3f795a6eeab7dbbc2";
+		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + "wxf56840b927f5effa" + "&secret=" + "2aab99cd0bbbfc2f1eef0c0962ade21d";
 		String accessToken = null;
 		try {
 			URL urlGet = new URL(url);

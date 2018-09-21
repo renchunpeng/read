@@ -93,8 +93,7 @@ public class CoreService {
 				// 上报地理位置
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) {
 					// TODO 处理上报地理位置事件
-//					respContent = "您现在的位置是：" + requestMap.get("Longitude") + "," + requestMap.get("Latitude");
-					respContent = " <div style=\"background: #98bf21; height: 100px; width: 100px; position: absolute\">rcp</div>";
+					respContent = "您现在的位置是：" + requestMap.get("Longitude") + "," + requestMap.get("Latitude");
 					System.out.println(respContent);
 				}
 				// 自定义菜单

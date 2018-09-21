@@ -17,7 +17,7 @@ public class MainMenu {
 
 	public static void main(String[] args) throws Exception {
 		ViewButton vbt = new ViewButton();
-		vbt.setUrl("http://47.96.74.18/ssm");
+		vbt.setUrl("http://n157392v64.imwork.net/read");
 		vbt.setName("书城");
 		vbt.setType("view");
 
@@ -28,6 +28,7 @@ public class MainMenu {
 		menujson.put("button", button);
 		System.out.println(menujson);
 		// 这里为请求接口的url +号后面的是token，这里就不做过多对token获取的方法解释
+		deleteMenu();
 		String message = createMenu(menujson.toString(), GetAccessToken.getAccess_token());
 		System.out.println(message);
 
