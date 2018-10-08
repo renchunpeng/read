@@ -1,14 +1,11 @@
 package com.soecode.lyf.web;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.soecode.lyf.businessUtils.BookListUtils;
 import com.soecode.lyf.common.Constants;
 import com.soecode.lyf.common.DesUtil;
 import com.soecode.lyf.common.parse.otherSupport.ValidateUtil;
 import com.soecode.lyf.dto.Result;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.service.LoginService;
-import com.soecode.lyf.service.MobileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/login") // url:/模块/资源/{id}/细分 /seckill/list
+@RequestMapping("/login")
+/**
+ * url:/模块/资源/{id}/细分 /seckill/list
+ */
 public class LoginController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -89,13 +89,15 @@ public class LoginController {
         //用户名密码存入cookie
 		name = desUtil.encrypt(name);
 		Cookie userName=new Cookie(Constants.COOKIE_NAME, name);
-		userName.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
+		//存活期为一个月 30*24*60*60
+		userName.setMaxAge(30*24*60*60);
 		userName.setPath("/");
 		response.addCookie(userName);
 
 		pwd = desUtil.encrypt(pwd);
 		Cookie userPwd=new Cookie(Constants.COOKIE_PWD,pwd);
-		userPwd.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
+		//存活期为一个月 30*24*60*60
+		userPwd.setMaxAge(30*24*60*60);
 		userPwd.setPath("/");
 		response.addCookie(userPwd);
     }
