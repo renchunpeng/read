@@ -12,6 +12,9 @@ import com.soecode.lyf.dao.LoginDao;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.service.LoginService;
 
+/**
+ * @author rcp
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
 
