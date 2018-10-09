@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+/**
+ * @author rcp
+ */
 @Controller
 @RequestMapping(value = "/mobile")
 public class MobileController {
@@ -99,7 +102,7 @@ public class MobileController {
             e.printStackTrace();
         }
 
-        Elements links = null;
+        Elements links;
         if (null != isNewList && "" != isNewList) {
             links = doc.select(".listmain").select("dd:lt(13)");
             model.addAttribute("isNewList", true);
@@ -162,8 +165,10 @@ public class MobileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements links = doc.select("#content");//文章主体
-        String pageName = doc.select(".content").select("h1").text();//章节名
+        //文章主体
+        Elements links = doc.select("#content");
+        //章节名
+        String pageName = doc.select(".content").select("h1").text();
         Elements chapters = doc.select(".page_chapter").select("a");
 
         if (null != isNewList && "" != isNewList) {
@@ -200,7 +205,8 @@ public class MobileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements links = doc.select(".bookbox");//查询到的书籍
+        //查询到的书籍
+        Elements links = doc.select(".bookbox");
 
         if (links.size() == 0) {
             return lists;
@@ -283,7 +289,7 @@ public class MobileController {
     public Result removeBookList(String bookUrl, HttpSession session){
         try {
             User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
-            Map map = new HashMap();
+            Map map = new HashMap(16);
             map.put("bookUrl",bookUrl);
             map.put("user",loginUser.getId());
             int i = mobileService.removeBookList(map);
