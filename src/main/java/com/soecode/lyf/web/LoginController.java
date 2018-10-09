@@ -40,7 +40,7 @@ public class LoginController {
 	private DesUtil desUtil;
 
 	@RequestMapping(value = "/goLogin", method = RequestMethod.GET)
-	private String goLogin() {
+	public String goLogin() {
 		logger.info("进入登录接口！");
 		return "/login/login";
 	}
