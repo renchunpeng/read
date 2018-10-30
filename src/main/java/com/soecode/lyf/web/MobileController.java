@@ -103,7 +103,7 @@ public class MobileController {
         }
 
         Elements links;
-        if (null != isNewList && "" != isNewList) {
+        if (null != isNewList && !Objects.equals("", isNewList)) {
             links = doc.select(".listmain").select("dd:lt(13)");
             model.addAttribute("isNewList", true);
         } else {
@@ -152,7 +152,7 @@ public class MobileController {
     public String getContent(String url, String isNewList, HttpSession session, Model model) throws UnsupportedEncodingException {
         //TODO 获取章节信息的时候更新用户该书籍最后浏览章节
         User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
-        Map<Object, Object> params = new HashMap<>();
+        Map<Object, Object> params = new HashMap<>(16);
         params.put("user_id",loginUser.getId());
         params.put("book_mark",url);
         int end = url.lastIndexOf("/");
@@ -166,12 +166,13 @@ public class MobileController {
             e.printStackTrace();
         }
         //文章主体
+        assert doc != null;
         Elements links = doc.select("#content");
         //章节名
         String pageName = doc.select(".content").select("h1").text();
         Elements chapters = doc.select(".page_chapter").select("a");
 
-        if (null != isNewList && "" != isNewList) {
+        if (null != isNewList && !Objects.equals("", isNewList)) {
             model.addAttribute("isNewList", true);
         }
         model.addAttribute("content", links.toString());
@@ -196,7 +197,7 @@ public class MobileController {
     @RequestMapping(value = "search")
     @ResponseBody
     public List<SearchBook> search(String bookname) {
-        List<SearchBook> lists = new ArrayList<SearchBook>();
+        List<SearchBook> lists = new ArrayList<>();
 
         String url = Constants.BASEURL + "/s.php?q=" + bookname;
         Document doc = null;

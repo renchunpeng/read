@@ -6,10 +6,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * @author rcp
+ */
 @Component
 @Aspect
 public class ErrAspect {
-    // 切入点表达式按需配置
+    /**
+     * 切入点表达式按需配置
+     */
     @Pointcut("execution(* com.soecode.lyf.web.*.*(..))")
     private void myPointcut() {
     }
@@ -37,7 +42,9 @@ public class ErrAspect {
         System.out.println("[Aspect1] afterReturning advise");
     }
 
-    //这个总是捕捉不到错误
+    /**
+     * 这个总是捕捉不到错误
+     */
     @AfterThrowing(value = "myPointcut()", throwing = "e")
     public void afterThrowing(JoinPoint joinPoint,Throwable  e) {
         System.out.println("[Aspect1] afterThrowing advise");
