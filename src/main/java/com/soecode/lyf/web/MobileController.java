@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+/**
+ * @author rcp
+ */
 @Controller
 @RequestMapping(value = "/mobile")
 public class MobileController {
@@ -99,8 +102,8 @@ public class MobileController {
             e.printStackTrace();
         }
 
-        Elements links = null;
-        if (null != isNewList && "" != isNewList) {
+        Elements links;
+        if (null != isNewList && !Objects.equals("", isNewList)) {
             links = doc.select(".listmain").select("dd:lt(13)");
             model.addAttribute("isNewList", true);
         } else {
@@ -149,7 +152,7 @@ public class MobileController {
     public String getContent(String url, String isNewList, HttpSession session, Model model) throws UnsupportedEncodingException {
         //TODO 获取章节信息的时候更新用户该书籍最后浏览章节
         User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
-        Map<Object, Object> params = new HashMap<>();
+        Map<Object, Object> params = new HashMap<>(16);
         params.put("user_id",loginUser.getId());
         params.put("book_mark",url);
         int end = url.lastIndexOf("/");
@@ -162,11 +165,14 @@ public class MobileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements links = doc.select("#content");//文章主体
-        String pageName = doc.select(".content").select("h1").text();//章节名
+        //文章主体
+        assert doc != null;
+        Elements links = doc.select("#content");
+        //章节名
+        String pageName = doc.select(".content").select("h1").text();
         Elements chapters = doc.select(".page_chapter").select("a");
 
-        if (null != isNewList && "" != isNewList) {
+        if (null != isNewList && !Objects.equals("", isNewList)) {
             model.addAttribute("isNewList", true);
         }
         model.addAttribute("content", links.toString());
@@ -191,7 +197,7 @@ public class MobileController {
     @RequestMapping(value = "search")
     @ResponseBody
     public List<SearchBook> search(String bookname) {
-        List<SearchBook> lists = new ArrayList<SearchBook>();
+        List<SearchBook> lists = new ArrayList<>();
 
         String url = Constants.BASEURL + "/s.php?q=" + bookname;
         Document doc = null;
@@ -200,7 +206,8 @@ public class MobileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements links = doc.select(".bookbox");//查询到的书籍
+        //查询到的书籍
+        Elements links = doc.select(".bookbox");
 
         if (links.size() == 0) {
             return lists;
@@ -283,7 +290,7 @@ public class MobileController {
     public Result removeBookList(String bookUrl, HttpSession session){
         try {
             User loginUser = (User) session.getAttribute(Constants.SESSION_ID);
-            Map map = new HashMap();
+            Map map = new HashMap(16);
             map.put("bookUrl",bookUrl);
             map.put("user",loginUser.getId());
             int i = mobileService.removeBookList(map);

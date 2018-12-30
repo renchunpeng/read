@@ -3,7 +3,9 @@ package com.soecode.lyf.web;
 import com.soecode.lyf.common.Constants;
 import com.soecode.lyf.common.DesUtil;
 import com.soecode.lyf.dto.Result;
+import com.soecode.lyf.entity.User;
 import com.soecode.lyf.task.sendemail.BookUpdate;
+import com.soecode.system.annotation.TestLog;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
@@ -22,8 +24,11 @@ import javax.servlet.http.HttpSession;
 public class TestController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @TestLog(description = "登录测试",clazz = User.class)
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) {
+        User item = new User();
+        item.setName("rcp");
 		JSONArray list = JSONArray.fromObject(Constants.TEST_MENU);
 		JSONObject user = JSONObject.fromObject(Constants.TEST_USER);
 		model.addAttribute("list",list);
@@ -75,5 +80,11 @@ public class TestController {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+    public void qwe(){
+        String doc = null;
+        System.out.println(doc.toString());
+    }
 
 }

@@ -40,20 +40,20 @@ public class LoginController {
 	private DesUtil desUtil;
 
 	@RequestMapping(value = "/goLogin", method = RequestMethod.GET)
-	private String goLogin() {
+	public String goLogin() {
 		logger.info("进入登录接口！");
 		return "/login/login";
 	}
 
 	@RequestMapping(value = "/goRegister", method = RequestMethod.GET)
-	private String goRegister(Model model) {
+	public String goRegister(Model model) {
 		model.addAttribute("validate", ValidateUtil.getValidate(User.class));
 		return "/login/register";
 	}
 	
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	@ResponseBody
-	private String doLogin(HttpServletRequest request, HttpServletResponse response, 
+	public String doLogin(HttpServletRequest request, HttpServletResponse response,
 			String name, String pwd, HttpSession session) {
 		try{
 			Map<String, String> map = new HashMap<>();
@@ -85,7 +85,7 @@ public class LoginController {
 	 * @param name
 	 * @param pwd
 	 */
-    private void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String pwd) throws Exception{
+	public void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String pwd) throws Exception{
         //用户名密码存入cookie
 		name = desUtil.encrypt(name);
 		Cookie userName=new Cookie(Constants.COOKIE_NAME, name);

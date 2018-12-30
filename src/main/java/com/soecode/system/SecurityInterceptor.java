@@ -49,6 +49,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
     /**
      * 可做权限校验
      */
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws IOException {
         String urlPath = request.getRequestURI();
@@ -90,14 +91,18 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             String pwdValue = null;
             for (int i = 0; i < cookie.length; i++) {
                 Cookie cook = cookie[i];
-                if(cook.getName().equalsIgnoreCase(Constants.COOKIE_NAME)){ //获取用戶名鍵
+                //获取用戶名鍵
+                if(cook.getName().equalsIgnoreCase(Constants.COOKIE_NAME)){
                     nameValue = cook.getValue().toString();
-                    System.out.println("解密前name:"+nameValue);    //获取值
+                    //获取值
+                    System.out.println("解密前name:"+nameValue);
                     nameValue = desUtil.decrypt(nameValue);
                     System.out.println("解密后name:"+nameValue);
-                }else if(cook.getName().equalsIgnoreCase(Constants.COOKIE_PWD)){ //获取密码键
+                    //获取密码键
+                }else if(cook.getName().equalsIgnoreCase(Constants.COOKIE_PWD)){
                     pwdValue = cook.getValue().toString();
-                    System.out.println("解密前pwd:"+pwdValue);    //获取值
+                    //获取值
+                    System.out.println("解密前pwd:"+pwdValue);
                     pwdValue = desUtil.decrypt(pwdValue);
                     System.out.println("解密后pwd:"+pwdValue);
                 }

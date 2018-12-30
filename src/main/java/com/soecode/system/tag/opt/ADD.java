@@ -20,7 +20,8 @@ public class ADD extends SimpleTagSupport {
     /**
      * 加载标签
      */
-	public void doTag() throws JspException, IOException {
+	@Override
+    public void doTag() throws JspException, IOException {
 		//这里设置查询到用户没有登录直接就放开自定义标签中的内容猜测可能是为了照顾那些不需要登录就可以访问的页面
 		//但是不需要登录就能访问的页面感觉也没必要用权限控制标签
     	User user = (User) getJspContext().getAttribute("user" , PageContext.SESSION_SCOPE);
