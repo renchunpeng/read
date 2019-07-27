@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -24,18 +25,23 @@ import javax.servlet.http.HttpSession;
 public class TestController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Value("${defaultKey:/}login")
+    private String testVal;
+
     @TestLog(description = "登录测试",clazz = User.class)
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) {
-        User item = new User();
-        item.setName("rcp");
-		JSONArray list = JSONArray.fromObject(Constants.TEST_MENU);
-		JSONObject user = JSONObject.fromObject(Constants.TEST_USER);
-		model.addAttribute("list",list);
-		model.addAttribute("user", user);
-		model.addAttribute("systemHostUnit", "rcp测试系统");
-		model.addAttribute("systemTitle", "rcp测试系统");
-		return "/test/sysindex";
+        System.out.println(testVal);
+        return "123";
+//        User item = new User();
+//        item.setName("rcp");
+//		JSONArray list = JSONArray.fromObject(Constants.TEST_MENU);
+//		JSONObject user = JSONObject.fromObject(Constants.TEST_USER);
+//		model.addAttribute("list",list);
+//		model.addAttribute("user", user);
+//		model.addAttribute("systemHostUnit", "rcp测试系统");
+//		model.addAttribute("systemTitle", "rcp测试系统");
+//		return "/test/sysindex";
 	}
 
 	/**

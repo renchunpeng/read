@@ -80,9 +80,10 @@
  			
  			$.ajax({
  				url:"<%=basePath %>mobile/addBook",
+				type: 'POST',
  				data:{
  					bookName:bookName,
- 					bookUrl:bookUrl,
+					bookUrl:bookUrl,
  					picUrl:picUrl
  				},
  				success:function(result){

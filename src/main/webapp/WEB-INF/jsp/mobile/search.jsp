@@ -82,8 +82,6 @@
 						 	'<img src="' + item.bookPicUrl + '">' + 
 						 	item.bookName + 
 						 	'<br/>' +
-						 	'<span class="ban">'+ item.type +'</span>' +
-						 	'<br/>' +
 						 	'<span class="ban">'+ item.auth +'</span>' +
 						 	'<br/>' +
 							'</a>'; 

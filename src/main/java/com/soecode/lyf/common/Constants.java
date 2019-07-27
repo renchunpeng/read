@@ -7,8 +7,18 @@ public interface Constants {
      * 书城基础地址
      */
 	String BASEURL  = "http://www.biqukan.com";
-	
+
 	/**
+	 * 书城搜搜地址
+	 */
+	String SEARCH_BASEURL  = "https://so.biqusoso.com/s.php?ie=gbk&siteid=biqukan.com&s=2758772450457967865&q=";
+
+    /**
+     *  默认封面地址
+     */
+    String BASE_PIC_URL = "https://www.biqukan.com/files/article/image/69/69071/69071s.jpg";
+
+    /**
      * 用户session的 key
      */
 	String SESSION_ID = "user";

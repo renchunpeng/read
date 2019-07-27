@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -198,40 +200,34 @@ public class MobileController {
     @ResponseBody
     public List<SearchBook> search(String bookname) {
         List<SearchBook> lists = new ArrayList<>();
-
-        String url = Constants.BASEURL + "/s.php?q=" + bookname;
         Document doc = null;
         try {
+            String url = Constants.SEARCH_BASEURL  + URLEncoder.encode(bookname,"GBK");
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
         //查询到的书籍
-        Elements links = doc.select(".bookbox");
+        Elements links = doc.select("li");
 
-        if (links.size() == 0) {
+        if (links.size() == 1) {
+            // 说明只有title标题,没有查询结果
             return lists;
         }
 
+        // 去掉title
+        links.remove(0);
         for (Element element : links) {
-            String bookName = element.select(".bookname").select("a").text();
-            String bookUrl = Constants.BASEURL + element.select(".bookimg").select("a").attr("href");
-            String bookPicUrl = Constants.BASEURL + element.select(".bookimg").select("img").attr("src");
-            String type = element.select(".cat").text();
-            String auth = element.select(".author").text();
-            String latestPageName = element.select(".update").select("a").text();
-            String latestPageUrl = Constants.BASEURL + element.select(".update").select("a").attr("href");
-            String remark = element.select("p").text();
+            String bookName = element.select(".s2").select("a").text();
+            String bookUrl = element.select(".s2").select("a").attr("href");
+            String auth = element.select(".s4").text();
 
             SearchBook sBook = new SearchBook();
             sBook.setBookName(bookName);
             sBook.setBookUrl(bookUrl);
-            sBook.setBookPicUrl(bookPicUrl);
-            sBook.setType(type);
+            // 新版搜索结果页面没有图片地址了,先默认,后面添加到书架的时候会更新
+            sBook.setBookPicUrl(Constants.BASE_PIC_URL);
             sBook.setAuth(auth);
-            sBook.setLatestPageName(latestPageName);
-            sBook.setLatestPageUrl(latestPageUrl);
-            sBook.setRemark(remark);
 
             lists.add(sBook);
         }
@@ -248,15 +244,17 @@ public class MobileController {
      */
     @RequestMapping(value = "/addBook")
     @ResponseBody
-    public void addBook(String bookName, String bookUrl, String picUrl, HttpSession session) {
+    public void addBook(String bookName, String bookUrl, String picUrl, HttpSession session) throws UnsupportedEncodingException {
         UserAndBook userAndBook = new UserAndBook();
-        userAndBook.setBookUrl(bookUrl);
+        String replace = bookUrl.replace("book/goto/id/", "");
+        String temp = replace.substring(replace.lastIndexOf("/")+1,replace.length());
+        String temp2 = temp.substring(0,2);
+        userAndBook.setBookUrl(Constants.BASEURL + "/" + temp2 + "_" + temp);
         userAndBook.setName(bookName);
         userAndBook.setImgUrl(picUrl);
         userAndBook.setUserId(Common.getUser().getId());
         userAndBook.setId(UUID.randomUUID().toString().replace("-", ""));
         mobileService.addBook(userAndBook);
-
     }
 
     /**
