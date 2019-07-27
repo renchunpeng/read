@@ -249,7 +249,7 @@ public class MobileController {
         String replace = bookUrl.replace("book/goto/id/", "");
         String temp = replace.substring(replace.lastIndexOf("/")+1,replace.length());
         String temp2 = temp.substring(0,2);
-        userAndBook.setBookUrl(Constants.BASEURL + "/" + temp2 + "_" + temp);
+        userAndBook.setBookUrl(Constants.BASEURL + "/" + temp2 + "_" + temp + "/");
         userAndBook.setName(bookName);
         userAndBook.setImgUrl(picUrl);
         userAndBook.setUserId(Common.getUser().getId());
